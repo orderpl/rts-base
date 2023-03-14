@@ -1,8 +1,12 @@
 import pygame
-from main import Game
+from building import Building
 
 class Map(object):
-    def __init__(self, game:Game) -> None:
-        self.game:Game = game
-        self.objs:list = []
+    def __init__(self, game) -> None:
+        self.game = game
+        self.objs:list[Building, ] = []
         self.entities:list = []
+        
+    def render(self):
+        for obj in self.objs:
+            obj.render()
