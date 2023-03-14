@@ -2,14 +2,14 @@ import pygame
 from pygame import Vector2, Surface, time
 
 class Game(object):
-    def __init__(self, screen_size:Vector2=Vector2(0, 0)) -> None:
+    def __init__(self, screen_size:Vector2 | tuple[int, int]=Vector2(0, 0)) -> None:
         self.screen:Surface = pygame.display.set_mode(screen_size)
         self.res:Vector2 = Vector2(pygame.display.get_window_size())
         self.running:bool = True
         self.deltaTime:float = 0.0
         self.clock:time.Clock = time.Clock()
     
-    def run(self):
+    def run(self) -> None:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -24,5 +24,5 @@ class Game(object):
         pygame.quit()
         
 if __name__ == "__main__":
-    game = Game()
+    game = Game(Vector2(800, 450))
     game.run()
