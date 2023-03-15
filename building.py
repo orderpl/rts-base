@@ -8,6 +8,5 @@ class Building(object):
         self.rect:Rect = rect
         
     def render(self):
-        rendedRect = self.rect.copy()
-        rendedRect.center += self.game.camera.pos
+        rendedRect = Rect(self.game.camera.getOnScreenPos(Vector2(self.rect.topleft)), Vector2(self.rect.size) * self.game.camera.zoom)
         draw.rect(self.game.screen, (255, 255, 255), rendedRect)
