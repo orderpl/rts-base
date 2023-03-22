@@ -1,5 +1,6 @@
 import pygame
 from pygame import Vector2, Surface, time, font
+from hut import Hut
 from map import Map
 from camera import Camera
 from building import Building
@@ -40,17 +41,10 @@ class Game(object):
             self.deltaTime += self.clock.tick() / 1000.0
             while self.deltaTime > 1 / self.tps:
                 self.camera.update()
-                    
+                
                 if pygame.mouse.get_pressed()[0]:
-                    newRect = pygame.Rect(Vector2(0, 0), Vector2(100, 100))
-                    newRect.center = self.camera.getRealWorldPos(pygame.mouse.get_pos())
-                    canPlace = True
-                    for obj in self.map.objs:
-                        if obj.rect.colliderect(newRect):
-                            canPlace = False
-                            break
-                    if canPlace:
-                        self.map.objs.append(Building(self, Surface(Vector2(1, 1)), newRect))
+                    newB = Hut(self, self.camera.getRealWorldPos(Vector2(pygame.mouse.get_pos())))
+                    self.tryPlaceBuilding(newB)
                     
                 self.deltaTime -= 1 / self.tps
                     
@@ -62,6 +56,12 @@ class Game(object):
             pygame.display.update()
             self.screen.fill((0, 0, 0))
         pygame.quit()
+
+    def tryPlaceBuilding(self, building: Building) -> None:        
+        for obj in self.map.objs:
+            if obj.rect.colliderect(building.rect):
+                return
+        self.map.objs.append(building)
         
 if __name__ == "__main__":
     game = Game(Vector2(800, 450))

@@ -13,16 +13,16 @@ class Camera(object):
         self.vel:Vector2 = Vector2(0, 0)
         self.acc:Vector2 = Vector2(0, 0)
         
-    def getOnScreenPos(self, vector:Vector2):
+    def getOnScreenPos(self, vector:Vector2) -> Vector2:
         screenPos = vector * self.zoom - self.pos
         # if screenPos.x < -self.game.res.x * outsideBouds or screenPos.x > self.game.res.x * (outsideBouds + 1) or \
         #     screenPos.y < -self.game.res.y * outsideBouds or screenPos.y > self.game.res.y * (outsideBouds + 1):
         return screenPos
         
-    def getRealWorldPos(self, vector:Vector2):
+    def getRealWorldPos(self, vector:Vector2) -> Vector2:
         return (vector + self.pos) / self.zoom
     
-    def update(self):
+    def update(self) -> None:
         keys = key.get_pressed()
         self.acc *= 0
         if keys[K_w]:

@@ -7,6 +7,6 @@ class Map(object):
         self.objs:list[Building, ] = []
         self.entities:list = []
         
-    def render(self):
+    def render(self) -> None:
         for obj in self.objs:
             obj.render()
