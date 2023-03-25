@@ -1,7 +1,7 @@
 import pygame
 from pygame import Surface, Vector2, Rect
 
-debug = True
+debug = False
 
 class Building(object):
     def __init__(self, game, image:Surface, rect:Rect, imageOffset:Vector2, imageSize:Vector2) -> None:

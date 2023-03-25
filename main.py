@@ -69,7 +69,7 @@ class Game(object):
             if obj.rect.colliderect(building.rect):
                 return
         if isinstance(building, Hut):
-            self.rc.maxHousing += 8
+            self.rc.maxHousing += 4
         self.map.objs.append(building)
         
 if __name__ == "__main__":
