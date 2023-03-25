@@ -2,11 +2,11 @@ import pygame
 from pygame import Surface, Vector2, Rect
 
 class Building(object):
-    def __init__(self, game, image:Surface, rect:Rect, imageOffset:Vector2) -> None:
+    def __init__(self, game, image:Surface, rect:Rect, imageOffset:Vector2, imageSize:Vector2) -> None:
         """Image offset is offset from center"""
         self.game = game
         self.imageOffset = imageOffset
-        self.image:Surface = image
+        self.image:Surface = pygame.transform.scale(image, imageSize)
         self.imageRect:Rect = self.image.get_rect()
         self.rect:Rect = rect
         

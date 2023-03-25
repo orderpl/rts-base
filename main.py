@@ -4,6 +4,7 @@ from hut import Hut
 from map import Map
 from camera import Camera
 from building import Building
+from resourcesController import ResourceController as RC
 
 pygame.init()
 font.init()
@@ -18,17 +19,17 @@ class Game(object):
         self.camera:Camera = Camera(self, movementSpeed=1.2, movementBrake=0.1)
         self.tps:int = 60
         
+        self.fontNormal = font.SysFont("Arial", 20)
+        self.rc = RC(self)
         self.map:Map = Map(self)
-        # self.map.objs.append(Building(self, Surface(Vector2(1, 1)), pygame.Rect(0, 0, 100, 100)))
     
-    def writeText(self, text:str, pos:Vector2, usedFont:font.SysFont=font.SysFont("Arial", 20), out=False):
-        r = usedFont.render(text, 1, (255, 255, 255))
+    def writeText(self, text:str, pos:Vector2, customFont:font.SysFont, out=False):
+        r = customFont.render(text, True, (255, 255, 255))
         if out:
             return r
         else:
             self.screen.blit(r, pos)
 
-    
     def run(self) -> None:
         while self.running:
             for event in pygame.event.get():
@@ -46,21 +47,29 @@ class Game(object):
                     newB = Hut(self, self.camera.getRealWorldPos(Vector2(pygame.mouse.get_pos())))
                     self.tryPlaceBuilding(newB)
                     
-                self.deltaTime -= 1 / self.tps
+                self.rc.update()
+                
                     
-            ########################################################################################################################################################
+                self.deltaTime -= 1 / self.tps
     
-            self.map.render()
-
+            self.render()
+            
             pygame.display.set_caption(f"{int(self.clock.get_fps())}")
-            pygame.display.update()
-            self.screen.fill((0, 0, 0))
         pygame.quit()
+    
+    def render(self):
+        self.map.render()
+        self.rc.renderUI()
+
+        pygame.display.update()
+        self.screen.fill((0, 0, 0))
 
     def tryPlaceBuilding(self, building: Building) -> None:        
         for obj in self.map.objs:
             if obj.rect.colliderect(building.rect):
                 return
+        if isinstance(building, Hut):
+            self.rc.maxHousing += 8
         self.map.objs.append(building)
         
 if __name__ == "__main__":

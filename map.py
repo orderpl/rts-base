@@ -1,4 +1,3 @@
-import pygame
 from building import Building
 
 class Map(object):

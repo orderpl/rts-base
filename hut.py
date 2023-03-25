@@ -6,5 +6,5 @@ class Hut(Building):
     def __init__(self, game, center:Vector2) -> None:
         image = IMAGES["hut"]
         rect = image.get_rect(center=center)
-        super().__init__(game, image, rect, Vector2(0, 0))
+        super().__init__(game, image, rect, Vector2(0, 0), Vector2(100, 100))
         
