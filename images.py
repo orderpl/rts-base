@@ -1,6 +1,6 @@
 from pygame import image, Surface
 
 IMAGES:dict[str, Surface] = {
-    "hut": image.load("images\\hut0.png")
+    "hut": image.load("images\\hut0.png").convert_alpha()
 
 }

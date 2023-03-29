@@ -6,13 +6,13 @@ class ResourceController:
     def __init__(self, game) -> None:
         self.screen, self.font = game.screen, game.fontNormal
         
-        self.citizenHappyness = 0
+        self.citizenHappyness = 69
         self.newCitizen = 0.0
         self.citizens = []
         self.maxHousing = 0
         
     def update(self):
-        self.newCitizen += self.citizenHappyness / 1024
+        self.newCitizen += self.citizenHappyness / 512
 
         freeSpace = self.maxHousing - len(self.citizens)
         growth = int(self.newCitizen)
